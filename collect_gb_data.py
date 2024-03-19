@@ -66,8 +66,10 @@ def get_games_from_giant_bomb(api_key, starting_offset):
     
     return offset - starting_offset  # Return how many new games were added
 
-# Update starting_offset to your last successful offset
+# REMEMBER update starting_offset to last successful offset
+#Last successful = 25300
 new_games_added = get_games_from_giant_bomb(api_key, 5800)
+
 print(f"New games added: {new_games_added}")
 
 
