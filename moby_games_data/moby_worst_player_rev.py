@@ -1,11 +1,11 @@
 import json
 import sqlite3
 
-# Load JSON data
+
 with open('moby_games_data/mg_worst_reviews', 'r') as json_file:
     reviews_data = json.load(json_file)
 
-# Create SQLite connection
+
 conn = sqlite3.connect('moby_worst_player_reviews.db')
 cursor = conn.cursor()
 

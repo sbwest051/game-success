@@ -61,6 +61,6 @@ for review in reviews_data:
     for publisher in review['publishers']:
         cursor.execute('''INSERT OR IGNORE INTO Publishers (name) VALUES (?)''', (publisher,))
 
-# Commit changes and close connection
+
 conn.commit()
 conn.close()

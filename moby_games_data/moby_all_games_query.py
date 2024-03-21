@@ -5,11 +5,11 @@ import sqlite3
 with open('moby_games_data/games_moby_data.json', 'r') as json_file:
     games_data = json.load(json_file)
 
-# Create an SQLite connection
+
 conn = sqlite3.connect('moby_all_games.db')
 cursor = conn.cursor()
 
-# Create tables
+
 cursor.execute('''CREATE TABLE IF NOT EXISTS Games (
                     id INTEGER PRIMARY KEY,
                     title TEXT,
@@ -41,7 +41,6 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS Publishers (
 # Insert data into tables
 for game in games_data:
     # Insert into Games table
-    # Insert into Games table with INSERT OR REPLACE
     cursor.execute('''INSERT OR REPLACE INTO Games (id, title, release_date, moby_score, moby_url)
                     VALUES (?, ?, ?, ?, ?)''',
                 (game['id'], game['title'], game['release_date'], game['moby_score'], game['moby_url']))
@@ -63,6 +62,6 @@ for game in games_data:
     for publisher in game['publishers']:
         cursor.execute('''INSERT OR IGNORE INTO Publishers (name) VALUES (?)''', (publisher,))
 
-# Commit changes and close connection
+
 conn.commit()
 conn.close()
