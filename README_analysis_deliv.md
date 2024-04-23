@@ -41,12 +41,9 @@ By tuning this, we can balance between simplicity and model complexity,
 enabling better interpretation of the coefficients.
 
 
-## Question 2
+## Questions 2 & 3:
 What is your interpretation of the results? Do you accept or deny the hypothesis, or are you satisfied with your prediction accuracy? For prediction projects, we expect you to argue why you got the accuracy/success metric you have. Intuitively, how do you react to the results? Are you confident in the results?
-- ML Component: 
 
-
-## Question 3
 Did you find the results corresponded with your initial belief in the data? If yes/no, why do you think this was the case?
 Do you believe the tools for analysis that you chose were appropriate? If yes/no, why or what method could have been used?
 Was the data adequate for your analysis? If not, what aspects of the data were problematic and how could you have remedied that?
