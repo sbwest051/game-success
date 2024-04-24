@@ -11,11 +11,18 @@ conn.execute("ATTACH DATABASE 'igdb.db' AS ig")
 query = """
 WITH subquery AS (
   SELECT
-    game_name,
+    ur.game_name,
     AVG(score) / 5 AS average_score,
-    COUNT(*) AS gb_review_count 
+    COUNT(*) AS gb_review_count,
+    g.original_release_date,
+    g.description, 
+    g.number_of_user_reviews 
   FROM
-    user_reviews 
+    user_reviews ur
+  JOIN
+    games g
+  ON
+    ur.game_name = g.name
   GROUP BY
     game_name
 )
@@ -23,6 +30,7 @@ SELECT
   sq.game_name,
   sq.average_score,
   sq.gb_review_count,
+  sq.original_release_date,
   ig.id,
   ig.name,
   ig.Genre1,

@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import datetime
 
 
 create_review_table = """
@@ -50,13 +51,24 @@ def insert_review_data(conn, val):
     """
     conn.execute(insert_query, (guid, game_name, score, review_date))
 
+def validate_date(date_str):
+    try:
+        # Assuming the date format is YYYY-MM-DD
+        return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+    except TypeError:
+        return ""
+    except ValueError:
+        return ""
+
 def insert_big_data(conn, val):
     guid = str(val['guid'])
     # print(guid)
     # game_id = val['game']['id'] if val.get('game') else None
     game_name = str(val['name']) #if val.get('game') else None
     description = str(val['deck'])
-    original_release_date = val["original_release_date"] if val['original_release_date'] else ""
+    original_release_date = validate_date(val.get("original_release_date", ""))
+    # original_release_date = val.get("original_release_date", "")#val["original_release_date"] if val['original_release_date'] else ""
+    print(original_release_date)
     number_of_user_reviews = int(val["number_of_user_reviews"])
 
     
@@ -75,6 +87,7 @@ with open('gb_reviews_json.json', 'r') as file:
 with open('gb1_json.json', 'r') as file:
     values = json.load(file)
     for v in values:
+        print(v)
         insert_big_data(conn, v)
 
 
