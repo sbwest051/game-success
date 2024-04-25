@@ -12,6 +12,26 @@ REQ_LINK = 'https://api.igdb.com/v4/games'
 AUTH_TOK = 'zs5j43ixb08w1tyruzx4jzdb47ken7'
 LIMIT = 50
 
+def get_genre(genre):
+
+    Request_genre_link = "https://api.igdb.com/v4/genres"
+    try:
+        params = {
+                'Client-ID': CLIENT_ID,
+                'Authorization': 'Bearer ' + AUTH_TOK,
+                'Accept': 'application/json',
+            }
+        body = 'fields \
+                    name; limit ' + str(LIMIT) + ';'
+        response = requests.post(Request_genre_link, headers=params, data = body)
+        games = response.json()
+        save_data_to_json(games, "data/idgb_genre.json")
+        
+    except requests.exceptions.RequestException as e:
+        print("Error making API request for genre:", e)
+        return None
+
+
 def make_api_request(link):
     try:
         params = {
@@ -65,7 +85,10 @@ def save_data_to_json(data, filename):
 
 def main():
     # Make API request
-    make_api_request(REQ_LINK)
+    # make_api_request(REQ_LINK)
+
+    # Request Genre
+    get_genre('"shooter"')
     
     # api_data = None #make_api_request()
     # if credentials:

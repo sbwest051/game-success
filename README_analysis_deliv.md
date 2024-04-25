@@ -69,22 +69,48 @@ However, as seen in output.csv some fields such as companies involved have an ID
 **Objective**: Compare the means of two independent samples.
 **Context**:
 Average scores of games on multiple platforms versus single platforms.
-Average scores of Action games versus non-Action games.
+Average scores of Shooter games versus non-Shooter games.
 **Justification**: Determines if there are statistically significant differences between the group means under the assumption of unknown but equal variances.
 
-Hypothesis 1: Games on Multiple Platforms vs. Single Platform
+**Hypothesis 1**: Games on Multiple Platforms vs. Single Platform
 
 The hypothesis that we want to test is, on average, is the score of video games available on multiplayer vs single player? A two-sample t-test is used here, because it is designed to compare means from two independent groups. The predictor variable in this case is the multiplayer status of games, which determines whether test subjects can play a game together: ‘Multiple’ if yes (multiplayer greater than 0) and ‘Single’ if not (multiplayer of 0). Welch’s t-test is selected (welch=True) where variances of two groups for comparison are not required to be the same. Since different levels of exposure and market competition might have different impacts on the variance of games scores obtained on multiple platforms and a single platform, the assumption that the variance of these two groups is the same should be relaxed
 
-Hypthesis 2:
-For the second hypothesis, the aim is to test if Action games (assumed to be represented by Genre1 value of 5) score higher on average than games from other genres. A two-sample t-test compared the average scores of games identified as Action with those that are not. This test is suitable as it provides a method to check if the mean scores are significantly different between the two categories, which are assumed to be independent of each other. This approach directly addresses the question of whether a specific genre, in this case, Action, is associated with higher or lower game scores compared to the broader market.
+Null Hypothesis: There is no difference in ratings between multiplayer and single-player games
 
-Hypothesis 3:
+Two-sample t-test Results:
+T-statistic: -0.7399646416199741
+P-value: 0.4596644633094552
+
+
+**Hypthesis 2**:
+For the second hypothesis, the aim is to test if Shooter games (represented by Genre1 value of 5) score higher on average than games from other genres. A two-sample t-test compared the average scores of games identified as Shooters with those that are not. This test is suitable as it provides a method to check if the mean scores are significantly different between the two categories, which are assumed to be independent of each other. This approach directly addresses the question of whether a specific genre, in this case, Shooters, is associated with higher or lower game scores compared to the broader market.
+
+Null Hypothesis: There is no difference in ratings between shooter and non-shooter games
+
+Two-sample t-test Results:
+T-statistic: -0.3000267166266354
+P-value: 0.7642949242767471
+
+One-sample z-test for Shooter Games:
+Z-score: 1.9292526396464995
+P-value: 0.05369950613404994
+
+
+**Hypothesis 3**:
 This hypothesis explores whether games with a high number of reviews have different average scores compared to games with fewer reviews. The dataset is divided into two groups based on the median number of reviews: games with reviews greater than the median are categorized as 'high review' games, and those with reviews less than or equal to the median as 'low review' games. A two-sample t-test is used to compare the average scores between these two groups. This test is particularly relevant here as it checks for mean differences where independent groups are expected to exhibit potentially unequal variances, especially given the diverse nature of games and how review counts can reflect varying levels of user engagement and popularity.
+
+Null Hypothesis: There is no difference in ratings between games with many reviews and games with few reviews.
+
+Two-sample t-test for high vs. low review counts:
+T-statistic: 6.5212444238160066
+P-value: 1.1217226791417664e-10
+
+
 
 ### One-sample z-test
 
-**Objective**: Compare the mean score of Action games against the overall mean score of all games.
+**Objective**: Compare the mean score of Shooter games against the overall mean score of all games.
 **Justification**: Suitable for large datasets where the population standard deviation is known and the sample means are normally distributed.
 Chi-squared TestFor examining associations between categorical variables.
 
@@ -95,29 +121,33 @@ Handling missing values and ensuring data integrity.
 Categorization of continuous data based on medians to define 'High' and 'Low' review counts.
 Creation of indicators for distinguishing between multiple and single platform games.
 
-## Results and Interpretation
-
-Two-sample t-test for Hypothesis 1 (multi vs. single platform):
-T-statistic: -0.7399646416199741
-P-value: 0.4596644633094552
-
-Two-sample t-test for Hypothesis 2 (Action vs. non-Action games):
-T-statistic: -0.3000267166266354
-P-value: 0.7642949242767471
-Z-score: 1.9292526396464995
-P-value: 0.05369950613404994
-Two-sample t-test for high vs. low review counts:
-T-statistic: 6.5212444238160066
-P-value: 1.1217226791417664e-10
-
 ### Hypotheses Testing Outcomes
 
 **Multi vs. Single Platform Games**:
-Reject the null hypothesis if p-value < 0.05, indicating significant differences in average scores.
-**Action vs. Non-Action Games**:
-Significant p-value leads to rejecting the null hypothesis, indicating notable differences in scores.
-**One-sample z-test for Action Games**:
-Significant results confirm that the average scores of Action games are distinct from the overall average.
+The p-value resulted at about 0.46, much above the 0.05 industry standard threshold for rejecting the null hypothesis.
+This means that we currently accept the null hypothesis, which states that multplayer and single player games
+have no significant difference in ratings.
+
+
+**Shooter vs. Non-Shooter Games**:
+The p-value came to about 0.764, even higher than the first tested hypothesis.
+Similar to multiplayer vs. single-player games, this indicates the similarity between the distributions of shooter and
+non-shooter games, and means we accept the null hypothesis, which states that shooter and non-shooter games
+have no significant difference in ratings
+**One-sample z-test for Shooter Games**:
+Our p-value came to about 0.0537, very near the threshold of statistical significance. These results
+confirm that the average scores of Shooter games are distinct from the overall average.
+**NOTE**:There is a strange disparity between these solutions. Comparing shooter and non-shooter games directly suggests 
+little difference between the populations, but calling a z-test on the shooter games with respect to the population
+as a whole suggests a much larger difference. This leaves us with somewhat inconclusive results, but could possibly be explained by 
+a higher variance in the distribution of shooter games, leading to discrepancies in the test, which assumes the same variance,
+and showing a higher level of variation in the data.
+
+
+**Number of Reviews to Score**:
+The p value in this case was remarkably low: 1.12e-10. This means we must indelibly reject the null hypothesis:
+our distributions of games with few reviews versus games with many reviews differ greatly. This suggests that in most
+cases, people are more likely to leave reviews if they have positive comments for the game.
 
 ### Confidence and Reaction
 
