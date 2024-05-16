@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import pandas as pd
 
 
 # Global variable for the API link
@@ -12,9 +13,10 @@ REQ_LINK = 'https://api.igdb.com/v4/games'
 AUTH_TOK = 'zs5j43ixb08w1tyruzx4jzdb47ken7'
 LIMIT = 50
 
-def get_genre(genre):
+def get_genre():
 
     Request_genre_link = "https://api.igdb.com/v4/genres"
+    
     try:
         params = {
                 'Client-ID': CLIENT_ID,
@@ -22,16 +24,42 @@ def get_genre(genre):
                 'Accept': 'application/json',
             }
         body = 'fields \
-                    name; limit ' + str(LIMIT) + ';'
+                    id, name; limit ' + str(LIMIT) + ';offset=' + n
         response = requests.post(Request_genre_link, headers=params, data = body)
         games = response.json()
         save_data_to_json(games, "data/idgb_genre.json")
         
+        
     except requests.exceptions.RequestException as e:
-        print("Error making API request for genre:", e)
-        return None
+        print("Error making API request for genre, could be finished:", e)
 
 
+def get_platform(platforms):
+
+    Request_ic_link = "https://api.igdb.com/v4/involved_companies"
+    Request_comp_link = "https://api.igdb.com/v4/companies"
+    for p in platforms:
+        try:
+            params = {
+                    'Client-ID': CLIENT_ID,
+                    'Authorization': 'Bearer ' + AUTH_TOK,
+                    'Accept': 'application/json',
+                }
+            body = f'fields \
+                        id, company; where id={p}; limit ' + str(LIMIT) + ';'
+            response = requests.post(Request_ic_link, headers=params, data = body)
+            r = response.json()
+            # body = f'fields \
+            #             name; where changed_company_id={r["company"]};'
+            # response = requests.post(Request_ic_link, headers=params, data = body)
+            # # final = pd.concat([r, response.json()])
+        except requests.exceptions.RequestException as e:
+            print("Error making API request for platform:", e)
+            continue
+
+        save_data_to_json(r, "data/idgb_platform.json")
+            
+        
 def make_api_request(link):
     try:
         params = {
@@ -76,7 +104,7 @@ def save_data_to_file(data, filename):
 
 def save_data_to_json(data, filename):
     try:
-        with open(filename, 'w') as file:
+        with open(filename, 'a') as file:
             json.dump(data, file, indent=4)  # Save data as JSON with indentation for readability
         print("Data saved successfully to", filename)
     except Exception as e:
@@ -88,8 +116,12 @@ def main():
     # make_api_request(REQ_LINK)
 
     # Request Genre
-    get_genre('"shooter"')
+    # get_genre()
     
+    # Get platformn 
+    platforms = ['70', '13634', '1', '112','26','66','37','0','197','129']
+    get_platform(platforms=platforms)
+
     # api_data = None #make_api_request()
     # if credentials:
     #     # Save data to .dat file

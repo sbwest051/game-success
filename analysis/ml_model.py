@@ -113,8 +113,11 @@ print("Root Mean Squared Error (RMSE):", random_forest_rmse)
 print("R-squared (R2) Score:", random_forest_r2)
 
 # Visualization 1: Correlation Heatmap
+data = data.drop('franchise_len', axis=1)
 numeric_data = data.select_dtypes(include=[np.number])  # Select only numeric columns
-plt.figure(figsize=(10, 8))
+print(numeric_data.columns)
+plt.figure(figsize=(10, 7))
+
 sns.heatmap(numeric_data.corr(), annot=True, cmap='coolwarm', fmt=".2f")
 plt.title('Correlation Heatmap')
 plt.show()
@@ -130,10 +133,10 @@ plt.show()
 # Visualization 3: Relationship Between User Reviews and Success
 plt.figure(figsize=(10, 6))
 user_review_correlation_sorted = user_review_correlation.sort_values(ascending=False)
-sns.barplot(x=user_review_correlation_sorted.values, y=user_review_correlation_sorted.index, palette='viridis')
-plt.title('Correlation Between User Reviews and Average Score')
-plt.xlabel('Correlation Coefficient')
-plt.ylabel('Feature')
+sns.barplot(y=user_review_correlation_sorted.values, x=user_review_correlation_sorted.index, palette='magma')
+plt.title('Correlation to User Reviews')
+plt.xlabel('Feature')
+plt.ylabel('Percentage')
 plt.show()
 
 # Visualization 4: Model Performance Comparison
