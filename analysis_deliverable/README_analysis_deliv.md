@@ -143,7 +143,7 @@ as a whole suggests a much larger difference. This leaves us with somewhat incon
 a higher variance in the distribution of shooter games, leading to discrepancies in the test, which assumes the same variance,
 and showing a higher level of variation in the data.
 
-
+ 
 **Number of Reviews to Score**:
 The p value in this case was remarkably low: 1.12e-10. This means we must indelibly reject the null hypothesis:
 our distributions of games with few reviews versus games with many reviews differ greatly. This suggests that in most

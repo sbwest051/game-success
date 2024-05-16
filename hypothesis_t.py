@@ -4,7 +4,7 @@ from scipy.stats import ttest_ind, norm
 # Load your data
 data = pd.read_csv("output.csv")
 
-# Hypothesis 1: Games on multiple platforms vs. single platform
+# Hypothesis 1: Games availible in multi player vs single player
 # 'multiplayer' indicates if it's available on multiple platforms (0 = single, 1 = multiple)
 data['platform_type'] = data['multiplayer'].apply(lambda x: 'Multiple' if x > 0 else 'Single')
 multi_platform_scores = data[data['platform_type'] == 'Multiple']['average_score']
