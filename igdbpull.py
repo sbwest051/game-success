@@ -112,15 +112,16 @@ def save_data_to_json(data, filename):
 
 
 def main():
-    # Make API request
+    # uncomment what you want to check on
+    # Make API request for general dataset
     # make_api_request(REQ_LINK)
 
     # Request Genre
     # get_genre()
     
-    # Get platformn 
+    # Get platformn -> couldn't quite get to collect the right data
     platforms = ['70', '13634', '1', '112','26','66','37','0','197','129']
-    get_platform(platforms=platforms)
+    # get_platform(platforms=platforms)
 
     # api_data = None #make_api_request()
     # if credentials:
